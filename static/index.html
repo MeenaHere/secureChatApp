@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            With our Secure <img id="secure-icon" src="./images/secure.png" alt="iconsecure"> Chat App
+        </h1>
+        <h2>Lets connect to anyone from anywhere</h2>
+    </header>
+    <main>
+        <section class="left-section">
+            <div id="channel-list">
+                <h2>Channels</h2>
+                <button class="channels">Welcome</button>
+                <button class="channels" id="selected">Family</button>
+                <button class="channels">🔓 Office</button>
+                <button class="channels">Friends</button>
+            </div>
+            <div class="login-form">
+                Welcome, guest
+                <br> <br>
+                <input type="text" name="" id="username" placeholder="Enter your user name">
+                <input type="password" id="password" placeholder="Enter your password">
+                <div class="btn-class">
+                    <button id="sign-in-btn">Login</button>
+                </div>
+                <div>New user <button id="register-user-btn">Register here....</button> </div>
+
+            </div>
+            <!-- <div id="logged-in-dashbord">
+                Signed in as
+                <button id="sign-out-btn">Sign out</button>
+            </div> -->
+        </section>
+        <section class="right-section">
+            <h2>Channel name</h2>
+            <div id="main-message-area">
+                <div class="message-div">Message one</div>
+                <div class="message-div">Message one</div>
+                <div class="message-div">Message one</div>
+                <div class="message-div">Message one</div>
+                <div class="message-div">Message one</div>
+            </div>
+            <div class="message-form">
+                <input type="text" id="input-message">
+                <button id="send-message">Send</button>
+            </div>
+        </section>
+    </main>
+
+
+</body>
+
+</html>
