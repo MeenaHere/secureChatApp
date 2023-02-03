@@ -2,10 +2,8 @@ import express, { json } from 'express'
 import * as url from 'url'
 import * as dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
-import { authenticateUser, createToken } from './database.js'
 import userRoutes from './routes/userroutes.js'
 import messagesRoutes from './routes/messageroutes.js'
-
 
 const app = express()
 dotenv.config()
@@ -25,7 +23,7 @@ app.use(express.static(staticPath))
 
 app.use('/api', userRoutes, messagesRoutes)
 
-
+/* 
 app.post('/login', (req, res) => {
     const { username, password } = req.body
 
@@ -37,7 +35,7 @@ app.post('/login', (req, res) => {
         return
     }
 
-})
+}) */
 
 
 app.get('/secret', (req, res) => {

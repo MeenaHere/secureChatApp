@@ -14,22 +14,27 @@ function isValidData(data) {
         return false
     }
 
-    if (!isNonEmptyString(data.password)) {
-        console.log('isValidUser: wrong passowd')
-        return false
-    }
-
-    if (!isPositiveInteger(data.id)) {
-        console.log('isValidBook: felaktigt id')
-        return false
-    }
-
     return true
 
 }
 
+function isValidMessage(maybeData) {
+    const validPart = isValidData(maybeData)
+    if (!validPart) {
+        return false
+    }
+
+    if (!isPositiveInteger(maybeData.id)) {
+        console.log('isValidUser: wrong id')
+        return false
+    }
+
+    return true
+}
+
 function isNonEmptyString(input) {
-    return typeof input === 'string' && input.length > 0
+    typeof input === 'string' && input.length > 0
+    return true
 }
 
 function isPositiveInteger(x) {

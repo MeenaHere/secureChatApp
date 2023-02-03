@@ -3,18 +3,17 @@ import { isValidData, isPositiveInteger } from '../validate.js'
 
 const router = express.Router()
 
-const messages = [
-    { id: 1, userId: 1, username: "meena m", message: "m12345", messageTime: "", meesageDate: "" },
-    { id: 1, userId: 2, username: "ish m", message: "ish123", messageTime: "", meesageDate: "" },
-    { id: 1, userId: 3, username: "jesh m", message: "r1234", messageTime: "", meesageDate: "" }
-]
+//console.log('The database contains: ', userData)
+
 
 router.get('/messages', (req, res) => {
-    res.status(200).send(messages)
+    res.status(200).send(db.data)
 
 })
 
 router.post('/messages/', (req, res) => {
+
+    //check if user is logged in
     const newMessage = req.body
     const totalUserDataIndex = messages.length - 1
     const newId = messages[totalUserDataIndex].userId + 1
@@ -25,6 +24,17 @@ router.post('/messages/', (req, res) => {
     }
 
     messagess.push({ newMessage })
+    res.sendStatus(200)
+})
+
+
+
+router.post('/message/', (req, res) => {
+
+    const inputData = req.body
+
+    addCookie(inputData)
+
     res.sendStatus(200)
 })
 
@@ -46,5 +56,21 @@ router.delete('/messages/:id', (req, res) => {
     messages.splice(maybeMessageIndex, 1)
     res.sendStatus(200)
 })
+
+async function addCookie(messageData) {
+    const lastUserId = db.data.length
+
+    console.log("last user id is ", lastUserId)
+    const newId = lastUserId + 1
+
+    db.data.push({
+        userId: newId,
+        firstName: userInputData.firstName,
+        lastName: userInputData.lastName,
+        username: userInputData.username,
+        password: userInputData.password
+    })
+    db.write()
+}
 
 export default router

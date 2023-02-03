@@ -35,12 +35,15 @@ header h1 {
     border-right: 6px solid rgb(5, 96, 96);
 }
 
-.channels {
+.channels,
+.private-channels {
     flex-grow: 1;
     display: flex;
     margin: 1em;
     padding: 0.2em 0.8em;
 }
+
+.private-channels {}
 
 main {
     flex-grow: 1;
@@ -53,7 +56,9 @@ main>* {
     flex-grow: 1;
 }
 
-.login-form {
+#login-form,
+#register-form,
+#welcome-user {
     display: flex;
     flex-direction: column;
     margin-top: 3em;
@@ -61,16 +66,14 @@ main>* {
     border: 1px solid black;
 }
 
-.lbl {
-    text-align: left;
-}
-
-#username,
-#password {
+input {
     padding: 0.5em;
+    display: block;
 }
 
-#sign-in-btn {
+#sign-in-btn,
+#register-btn,
+#signout-btn {
     margin-top: 5px;
     padding: 0.5em 1.5em;
     background: rgb(12, 186, 186);
@@ -120,4 +123,14 @@ main>* {
     color: white;
     font-weight: 800;
     border: none;
+}
+
+#avatar {
+    border: 3px;
+}
+
+#register-form,
+#welcome-user,
+#warning-p {
+    display: none;
 }
