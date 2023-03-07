@@ -275,7 +275,6 @@ async function sendMessage() {
         if (response.status === 200) {
             getMessage(user.channelName)
             inputMsg.value = ''
-            window.location.reload();
         } else {
             warnPTag.style.color = "red"
             warnPTag.innerHTML = "Message cant be empty"
