@@ -1,9 +1,185 @@
-[
-  {
-    "userId": 1,
-    "firstName": "m",
-    "lastName": "m",
-    "username": "mm",
-    "password": "$2a$10$oZMWmI.xKBUU5roV9w7NQ.R8zjQqMuuEruXFtKk8MejSNiwtbOF1K"
-  }
-]
+{
+  "users": [
+    {
+      "userId": 1,
+      "firstName": "m",
+      "lastName": "m",
+      "username": "mm",
+      "password": "$2a$10$eI577Mt/bhBo68Z0xH4Rj.APmQ2xc10AnTa/6atPmeEJ7wV.XetXa"
+    },
+    {
+      "userId": 2,
+      "firstName": "r",
+      "lastName": "r",
+      "username": "rr",
+      "password": "$2a$10$2oFRGtcr5EWZRvXnn96.l.QiLDQYPdIV9QEaWMmx4cOkMrcfeYGL6"
+    },
+    {
+      "userId": 3,
+      "firstName": "meena",
+      "lastName": "singh",
+      "username": "meena s",
+      "password": "$2a$10$NHy86YPkJeJDkvfWOWn6OuhgTfkNZDAbCRzKRPtxEt8cjfxkkDEvW"
+    }
+  ],
+  "messages": [
+    {
+      "msgId": 1,
+      "username": "mm",
+      "message": "Hey ",
+      "channelName": "General",
+      "date": "04/03/2023",
+      "time": "14:54:06"
+    },
+    {
+      "msgId": 2,
+      "username": "mm",
+      "message": "Hey ",
+      "channelName": "General",
+      "date": "04/03/2023",
+      "time": "14:54:06"
+    },
+    {
+      "msgId": 4,
+      "username": "mm",
+      "message": "Hey ",
+      "channelName": "General",
+      "date": "04/03/2023",
+      "time": "14:54:06"
+    },
+    {
+      "msgId": 4,
+      "username": "rr",
+      "message": "hey",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "10:06:55"
+    },
+    {
+      "msgId": 5,
+      "username": "rr",
+      "message": "Hey there",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "10:07:05"
+    },
+    {
+      "msgId": 7,
+      "username": "rr",
+      "message": "Morning",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "10:09:47"
+    },
+    {
+      "msgId": 8,
+      "username": "rr",
+      "message": "Hello there",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "10:10:06"
+    },
+    {
+      "msgId": 10,
+      "username": "rr",
+      "message": "hkkk",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "10:13:22"
+    },
+    {
+      "msgId": 9,
+      "username": "mm",
+      "message": "Morning",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "10:21:36"
+    },
+    {
+      "msgId": 10,
+      "username": "rr",
+      "message": "hksds",
+      "channelName": "Office",
+      "date": "07/03/2023",
+      "time": "10:31:40"
+    },
+    {
+      "msgId": 11,
+      "username": "mm1",
+      "message": "jkwdqw",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "10:34:41"
+    },
+    {
+      "msgId": 12,
+      "username": "mm",
+      "message": "Nice to see here",
+      "channelName": "Family",
+      "date": "07/03/2023",
+      "time": "11:21:41"
+    },
+    {
+      "msgId": 13,
+      "username": "mm",
+      "message": "Nice to see here",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "11:21:41"
+    },
+    {
+      "msgId": 14,
+      "username": "Guest",
+      "message": "HIII thanks",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "11:35:00"
+    },
+    {
+      "msgId": 15,
+      "username": "Rr",
+      "message": "Helllo ",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "11:36:09"
+    },
+    {
+      "msgId": 16,
+      "username": "Rr",
+      "message": "Hiiii",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "11:41:36"
+    },
+    {
+      "msgId": 17,
+      "username": "Mm",
+      "message": "hjdkasd",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "11:51:50"
+    },
+    {
+      "msgId": 18,
+      "username": "Mm",
+      "message": "JJkkcksdfs",
+      "channelName": "General",
+      "date": "07/03/2023",
+      "time": "12:03:11"
+    }
+  ],
+  "channels": [
+    {
+      "channelId": 1,
+      "channelName": "General"
+    },
+    {
+      "channelId": 2,
+      "channelName": "Family"
+    },
+    {
+      "channelId": 3,
+      "channelName": "Office"
+    }
+  ]
+}

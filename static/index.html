@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Secure Chat App</title>
     <link rel="stylesheet" href="./styles/style.css">
     <script src="script.js" defer></script>
 </head>
@@ -22,18 +22,18 @@
             <!--  All channel list-->
             <div id="channel-list">
                 <h2>Channels</h2>
-                <button class="channels">Welcome</button>
-                <button class="channels" id="selected">Family</button>
-                <button class="private-channels" disabled>🔓 Office</button>
-                <button class="channels">Friends</button>
+                <button class="channels selected" id="general-channel">General</button>
+                <button class="channels" id="family-channel" disabled>Family</button>
+                <button class="channels" id="private-channel" disabled>Office</button>
             </div>
+            <br>
+            <p id="warning-p"></p>
             <!-- Existing user login form-->
             <div id="login-form">
-                Welcome, guest
-                <br> <br>
-                <input type="text" name="" id="username" placeholder="Enter your user name" required>
-                <input type="password" id="password" placeholder="Enter your password" required>
-                <p id="warning-p"></p>
+                <p class="guest-greeting">Welcome, Guest</p>
+                <input type="text" name="" id="username" placeholder="Enter your user name" required />
+                <input type="password" id="password" placeholder="Enter your password" required />
+
                 <div class="btn-class">
                     <button id="sign-in-btn">Login</button>
                 </div>
@@ -41,10 +41,10 @@
             </div>
             <!-- New user register form-->
             <div id="register-form">
-                <input type="text" name="" id="r-firstname" placeholder="Enter your first name">
-                <input type="text" name="" id="r-lastname" placeholder="Enter your last name">
-                <input type="text" name="" id="r-username" placeholder="Enter your user name">
-                <input type="password" id="r-password" placeholder="Enter your password">
+                <input type="text" name="" id="r-firstname" placeholder="Enter your first name" required />
+                <input type="text" name="" id="r-lastname" placeholder="Enter your last name" required />
+                <input type="text" name="" id="r-username" placeholder="Enter your user name" required />
+                <input type="password" id="r-password" placeholder="Enter your password" required />
                 <div class="btn-class">
                     <button id="register-btn">Register</button>
                 </div>
@@ -52,7 +52,7 @@
 
             <!-- after login page -->
             <div id="welcome-user">
-                <p id="user-greeting"></p>
+                <p class="user-greeting"></p>
                 <div></div>
                 <div class="btn-class">
                     <button id="signout-btn">Sign out</button>
@@ -61,18 +61,19 @@
         </section>
         <section class="right-section">
             <!-- Selected channel message area -->
-            <h2>Channel name</h2>
-            <div id="main-message-area">
-                <div class="message-div">Message one</div>
-                <div class="message-div">Message one</div>
-                <div class="message-div">Message one</div>
-                <div class="message-div">Message one</div>
-                <div class="message-div">Message one</div>
+            <h2 id="channel-heading">General</h2>
+            <p id="warn"></p>
+            <div id="message-list">
+
             </div>
-            <div class="message-form">
-                <input type="text" id="input-message">
+            <p id="warning-tag"></p>
+            <div id="message-form">
+                <div id="avatar">Guest </div>
+                <input type="text" id="input-message" required />
                 <button id="send-message">Send</button>
+
             </div>
+
         </section>
     </main>
 

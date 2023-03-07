@@ -36,14 +36,17 @@ header h1 {
 }
 
 .channels,
-.private-channels {
+#private-channel {
     flex-grow: 1;
     display: flex;
     margin: 1em;
     padding: 0.2em 0.8em;
 }
 
-.private-channels {}
+#selected {
+    border: 2px solid yellow;
+}
+
 
 main {
     flex-grow: 1;
@@ -90,17 +93,12 @@ input {
     font-size: 85%;
 }
 
-#register-user-btn:hover {
+#register-user-btn:hover,
+button:hover {
     cursor: pointer;
 }
 
 #main-message-area {
-    border: 1px solid black;
-    border-radius: 0.5em;
-    padding: 0.5em;
-}
-
-.message-div {
     border: 1px solid black;
     border-radius: 0.5em;
     padding: 0.5em;
@@ -126,7 +124,80 @@ input {
 }
 
 #avatar {
-    border: 3px;
+    margin-top: 0.5em;
+    padding: 0.5em;
+    border: 3px solid rgb(12, 186, 186);
+
+    /* border-radius: 50%; */
+}
+
+#avatar::first-letter {
+    text-transform: capitalize;
+}
+
+.message-list {
+    display: flex;
+}
+
+.user-avatar {
+    display: flex;
+    /* border: 3px solid rgb(12, 186, 186);
+     border-radius: 50%;
+    margin: 0.1em;*/
+}
+
+.user-avatar>p {
+    margin: 0;
+    padding-left: 1em;
+    font-size: medium;
+}
+
+.avatar {
+    font-size: x-large !important;
+    padding-left: 0.3em !important;
+}
+
+.outer>li:nth-child(2n) {
+    color: blue;
+}
+
+.outer>li:nth-child(2n + 1) {
+    color: red;
+}
+
+.msg-div {
+    padding: 0.5em;
+}
+
+.avatar::first-letter {
+    text-transform: capitalize;
+}
+
+#message-form {
+    display: flex;
+    padding-bottom: 2em;
+}
+
+.outer {
+    /*display: flex; */
+    border: 2px solid black;
+    margin: 0.2em;
+}
+
+.outer>button {
+    display: inline;
+    margin: 5px;
+    padding: 0.5em 1.5em;
+    background: rgb(12, 186, 186);
+    ;
+    color: white;
+    border: none;
+    font-weight: 800;
+}
+
+.msg-btn {
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 #register-form,

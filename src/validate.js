@@ -14,18 +14,26 @@ function isValidData(data) {
         return false
     }
 
+    if (!isNonEmptyString(data.password)) {
+        console.log('isValidUser: wrong format password')
+        return false
+    }
     return true
-
 }
 
 function isValidMessage(maybeData) {
-    const validPart = isValidData(maybeData)
-    if (!validPart) {
+    if (!isNonEmptyString(maybeData.username)) {
+        console.log('isValidUser: wrong username')
         return false
     }
 
-    if (!isPositiveInteger(maybeData.id)) {
-        console.log('isValidUser: wrong id')
+    if (!isNonEmptyString(maybeData.message)) {
+        console.log('isValidUser: wrong message')
+        return false
+    }
+
+    if (!isNonEmptyString(maybeData.channelName)) {
+        console.log('isValidUser: wrong channel name')
         return false
     }
 
@@ -33,8 +41,7 @@ function isValidMessage(maybeData) {
 }
 
 function isNonEmptyString(input) {
-    typeof input === 'string' && input.length > 0
-    return true
+    return typeof input === 'string' && input.length > 0
 }
 
 function isPositiveInteger(x) {
@@ -43,4 +50,4 @@ function isPositiveInteger(x) {
     return isNumber && x > 0 && isInteger
 }
 
-export { isValidData, isPositiveInteger }
+export { isValidData, isPositiveInteger, isValidMessage }
