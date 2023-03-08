@@ -204,6 +204,7 @@ async function checkedUserLoginStatus(token) {
 }
 
 async function getMessage(channelName) {
+
     let messageData = ""
     try {
         const response = await fetch(`/api/messages/${channelName}`)
@@ -224,8 +225,6 @@ async function getMessage(channelName) {
         const outerDiv = document.createElement('div')
         const msgDiv = document.createElement('div')
         const avatarDiv = document.createElement('div')
-        const editBtn = document.createElement('button')
-        const delBtn = document.createElement('button')
         const avatar = document.createElement('p')
         const datep = document.createElement('p')
         const timep = document.createElement('p')
@@ -249,7 +248,6 @@ async function getMessage(channelName) {
 }
 
 async function sendMessage() {
-    let jwtData = localStorage.getItem(jwtKey)
     let selectedChannel = document.querySelector(".selected")
     let date = new Date()
     let dateInString = date.toLocaleDateString()
@@ -275,6 +273,7 @@ async function sendMessage() {
         if (response.status === 200) {
             getMessage(user.channelName)
             inputMsg.value = ''
+            warnPTag.innerHTML = ''
         } else {
             warnPTag.style.color = "red"
             warnPTag.innerHTML = "Message cant be empty"

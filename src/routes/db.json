@@ -80,36 +80,12 @@
       "time": "10:10:06"
     },
     {
-      "msgId": 10,
-      "username": "rr",
-      "message": "hkkk",
-      "channelName": "General",
-      "date": "07/03/2023",
-      "time": "10:13:22"
-    },
-    {
       "msgId": 9,
       "username": "mm",
       "message": "Morning",
       "channelName": "General",
       "date": "07/03/2023",
       "time": "10:21:36"
-    },
-    {
-      "msgId": 10,
-      "username": "rr",
-      "message": "hksds",
-      "channelName": "Office",
-      "date": "07/03/2023",
-      "time": "10:31:40"
-    },
-    {
-      "msgId": 11,
-      "username": "mm1",
-      "message": "jkwdqw",
-      "channelName": "General",
-      "date": "07/03/2023",
-      "time": "10:34:41"
     },
     {
       "msgId": 12,
@@ -128,44 +104,20 @@
       "time": "11:21:41"
     },
     {
-      "msgId": 14,
-      "username": "Guest",
-      "message": "HIII thanks",
-      "channelName": "General",
-      "date": "07/03/2023",
-      "time": "11:35:00"
-    },
-    {
-      "msgId": 15,
-      "username": "Rr",
-      "message": "Helllo ",
-      "channelName": "General",
-      "date": "07/03/2023",
-      "time": "11:36:09"
-    },
-    {
-      "msgId": 16,
-      "username": "Rr",
-      "message": "Hiiii",
-      "channelName": "General",
-      "date": "07/03/2023",
-      "time": "11:41:36"
-    },
-    {
-      "msgId": 17,
+      "msgId": 11,
       "username": "Mm",
-      "message": "hjdkasd",
-      "channelName": "General",
-      "date": "07/03/2023",
-      "time": "11:51:50"
+      "message": "New Here",
+      "channelName": "Office",
+      "date": "08/03/2023",
+      "time": "11:45:39"
     },
     {
-      "msgId": 18,
+      "msgId": 12,
       "username": "Mm",
-      "message": "JJkkcksdfs",
-      "channelName": "General",
-      "date": "07/03/2023",
-      "time": "12:03:11"
+      "message": "hi there",
+      "channelName": "Family",
+      "date": "08/03/2023",
+      "time": "11:46:31"
     }
   ],
   "channels": [
