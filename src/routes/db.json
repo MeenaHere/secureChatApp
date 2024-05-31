@@ -20,6 +20,13 @@
       "lastName": "singh",
       "username": "meena s",
       "password": "$2a$10$NHy86YPkJeJDkvfWOWn6OuhgTfkNZDAbCRzKRPtxEt8cjfxkkDEvW"
+    },
+    {
+      "userId": 4,
+      "firstName": "meena",
+      "lastName": "m",
+      "username": "meenam",
+      "password": "$2a$10$Dlfsm.wfwyCEqJe17JUQ/.fi3hHA/VHRFTKLP2k.w5yNzCYGGyw56"
     }
   ],
   "messages": [
@@ -118,6 +125,38 @@
       "channelName": "Family",
       "date": "08/03/2023",
       "time": "11:46:31"
+    },
+    {
+      "msgId": 13,
+      "username": "Meenam",
+      "message": "Hii",
+      "channelName": "Family",
+      "date": "31/5/2024",
+      "time": "9:51:46 pm"
+    },
+    {
+      "msgId": 14,
+      "username": "Meenam",
+      "message": "Hiii",
+      "channelName": "Office",
+      "date": "31/5/2024",
+      "time": "9:51:52 pm"
+    },
+    {
+      "msgId": 15,
+      "username": "Meenam",
+      "message": "Hii",
+      "channelName": "General",
+      "date": "31/5/2024",
+      "time": "9:51:59 pm"
+    },
+    {
+      "msgId": 16,
+      "username": "Meenam",
+      "message": "new me",
+      "channelName": "General",
+      "date": "31/5/2024",
+      "time": "9:59:47 pm"
     }
   ],
   "channels": [

@@ -1,315 +1,265 @@
-//login user's elements
-const inputUsername = document.querySelector('#username')
-const inputPassword = document.querySelector('#password')
-const signInBtn = document.querySelector('#sign-in-btn')
+// DOM Elements
+const elements = {
+  // Input fields and buttons for login
+  inputUsername: document.querySelector('#username'),
+  inputPassword: document.querySelector('#password'),
+  signInBtn: document.querySelector('#sign-in-btn'),
 
-//register user elements
-const registerFirstName = document.querySelector('#r-firstname')
-const registerLastName = document.querySelector('#r-lastname')
-const registerUsername = document.querySelector('#r-username')
-const registerPassword = document.querySelector('#r-password')
-const registerBtn = document.querySelector('#register-btn')
-const registerUserBtn = document.querySelector('#register-user-btn')
+  // Input fields and buttons for registration
+  registerFirstName: document.querySelector('#r-firstname'),
+  registerLastName: document.querySelector('#r-lastname'),
+  registerUsername: document.querySelector('#r-username'),
+  registerPassword: document.querySelector('#r-password'),
+  registerBtn: document.querySelector('#register-btn'),
+  registerUserBtn: document.querySelector('#register-user-btn'),
 
-//after login dashbord elements
-const signoutBtn = document.querySelector('#signout-btn')
-const loggedinUsername = document.querySelector('#avatar')
-let inputMsg = document.querySelector('#input-message')
-const sendMsgBtn = document.querySelector('#send-message')
+  // Button for signing out
+  signoutBtn: document.querySelector('#signout-btn'),
 
-const loginForm = document.querySelector('#login-form')
-const registerForm = document.querySelector('#register-form')
-const signeddashboard = document.querySelector('#welcome-user')
-const avatar = document.querySelector('.msg-avatar')
+  // Element to display logged-in user's username
+  loggedinUsername: document.querySelector('#avatar'),
 
-const warningP = document.querySelector('#warning-p')
-const warnTag = document.querySelector("#warn")
-const userGreeting = document.querySelector('.user-greeting')
-//channels
-const channelHeading = document.querySelector('#channel-heading')
-const privateChannel = document.querySelector('#private-channel')
-const generalChannel = document.querySelector('#general-channel')
-const familyChannel = document.querySelector('#family-channel')
+  // Input field for sending messages
+  inputMsg: document.querySelector('#input-message'),
 
-const channels = document.querySelectorAll('.channels')
-const messageList = document.querySelector('#message-list')
-const msgOuterDiv = document.querySelector('.outer')
-const userAvatar = document.querySelector('.user-avatar')
-const msg = document.querySelector('.msg')
-const warnPTag = document.querySelector('#warning-tag')
-const jwtKey = 'user_jwt'
-let userLogin = false
+  // Button for sending messages
+  sendMsgBtn: document.querySelector('#send-message'),
 
-getMessage("General")
+  // Forms for login and registration
+  loginForm: document.querySelector('#login-form'),
+  registerForm: document.querySelector('#register-form'),
 
-const jwtUser = localStorage.getItem('user_jwt');
-if (jwtUser !== null) {
-    const token = JSON.parse(jwtUser).token
-    //decode the token to check expiation time
-    const decodedToken = JSON.parse(window.atob(token.split('.')[1]))
-    const expirationTime = decodedToken.exp * 1000;
-    if (Date.now() < expirationTime) {
-        checkedUserLoginStatus(token)
-    }
-    else {
-        // Remove expired token from local storage
-        localStorage.removeItem('user_jwt');
-    }
+  // Element for displaying user dashboard after login
+  signeddashboard: document.querySelector('#welcome-user'),
+
+  // Element for displaying warning messages
+  warningP: document.querySelector('#warning-p'),
+
+  // Element for displaying user greeting
+  userGreeting: document.querySelector('.user-greeting'),
+
+  // Element for displaying current channel
+  channelHeading: document.querySelector('#channel-heading'),
+
+  // Buttons for different channels
+  privateChannel: document.querySelector('#private-channel'),
+  generalChannel: document.querySelector('#general-channel'),
+  familyChannel: document.querySelector('#family-channel'),
+
+  // All channel buttons
+  channels: document.querySelectorAll('.channels'),
+
+  // Element for displaying list of messages
+  messageList: document.querySelector('#message-list'),
+
+  // Element for displaying warning tag
+  warnPTag: document.querySelector('#warning-tag')
+};
+
+// Key for JWT token in local storage
+const jwtKey = 'user_jwt';
+
+// Variable to track user login status
+let userLogin = false;
+
+// Initial setup
+loadMessages("General");
+checkUserLoginStatus();
+
+// Event Listeners
+elements.signInBtn.addEventListener('click', handleLogin);
+elements.signoutBtn.addEventListener('click', handleSignout);
+elements.registerUserBtn.addEventListener('click', showRegisterForm);
+elements.registerBtn.addEventListener('click', handleRegister);
+elements.sendMsgBtn.addEventListener('click', sendMessage);
+elements.channels.forEach(channel => channel.addEventListener('click', selectChannel));
+window.addEventListener('keydown', e => { if (e.key === "Enter") sendMessage(); });
+
+// Function to handle login
+async function handleLogin() {
+  // Get username and password from input fields
+  const user = {
+    username: elements.inputUsername.value,
+    password: elements.inputPassword.value
+  };
+
+  // Send login request to server
+  const response = await fetch('/api/login/', createRequestOptions('POST', user));
+
+  // Process response
+  if (response.ok) {
+    const userToken = await response.json();
+    saveToken(userToken);
+    updateUserInterface(user.username);
+    openDashboard();
+  } else {
+    displayWarning(response.status === 401 ? "Invalid password" : "Invalid username and password");
+  }
 }
 
-async function getUser() {
-    //get username and password from input field 
-    const user = {
-        username: inputUsername.value,
-        password: inputPassword.value
-    }
-
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(user),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }
-
-    const response = await fetch('/api/login/', options)
-
-    if (response.status === 200) {
-
-        loggedinUsername.innerHTML = user.username
-        userGreeting.innerText = `Signed in as: \n  ${user.username}`
-
-        generalChannel.classList.add("selected")
-        const selectedChannel = document.querySelector('.selected')
-        getMessage(selectedChannel.innerHTML)
-        channelHeading.innerHTML = selectedChannel.innerHTML
-        openDashboardAfterLogin()
-        //save the user token
-        const userToken = await response.json()
-        const inString = JSON.stringify(userToken)
-        console.log(inString)
-        localStorage.setItem(jwtKey, inString)
-        window.location.reload();
-    }
-    else if (response.status === 401) {
-        inputUsername.style.border = "2px solid red"
-        inputPassword.style.border = "2px solid red"
-        displayWarningMsg("Enter a valid password")
-    }
-    else {
-        inputUsername.style.border = "2px solid red"
-        inputPassword.style.border = "2px solid red"
-        displayWarningMsg("Enter a valid username and password")
-    }
+// Function to handle sign out
+async function handleSignout() {
+  localStorage.clear();
+  location.reload();
 }
 
-signInBtn.addEventListener('click', getUser)
-
-signoutBtn.addEventListener('click', async () => {
-    signeddashboard.style.display = "none"
-    loginForm.style.display = "block"
-    localStorage.clear()
-    window.location.reload();
-})
-
-registerUserBtn.addEventListener('click', async () => {
-    registerForm.style.display = "block"
-    loginForm.style.display = "none"
-})
-
-
-registerBtn.addEventListener('click', async () => {
-    //get username and password from input feild 
-    const user = {
-        firstName: registerFirstName.value,
-        lastName: registerLastName.value,
-        username: registerUsername.value,
-        password: registerPassword.value
-    }
-
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(user),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }
-
-    const response = await fetch('api/newuser', options)
-
-    if (response.status === 200) {
-
-        loggedinUsername.innerHTML = user.username
-        userGreeting.innerText = `Signed in as: \n  ${user.username}`
-        generalChannel.classList.add("selected")
-        const selectedChannel = document.querySelector('.selected')
-        getMessage(selectedChannel.innerHTML)
-        channelHeading.innerHTML = selectedChannel.innerHTML
-        openDashboardAfterLogin()
-        const userToken = await response.json()
-        const inString = JSON.stringify(userToken)
-        console.log(inString)
-        localStorage.setItem(jwtKey, inString)
-        openDashboardAfterLogin()
-        window.location.reload();
-
-        isLoggedIn = true
-    } else {
-        displayWarningMsg("Please fill all the details first")
-    }
-
-})
-
-function openDashboardAfterLogin() {
-    loginForm.style.display = "none"
-    registerForm.style.display = "none"
-    signeddashboard.style.display = "block"
-    privateChannel.disabled = false
-    familyChannel.disabled = false
-    sendMsgBtn.disabled = false
-    userLogin = true
+// Function to display registration form
+function showRegisterForm() {
+  elements.registerForm.style.display = "block";
+  elements.loginForm.style.display = "none";
 }
 
-async function checkedUserLoginStatus(token) {
+// Function to handle registration
+async function handleRegister() {
+  // Get user registration data
+  const user = {
+    firstName: elements.registerFirstName.value,
+    lastName: elements.registerLastName.value,
+    username: elements.registerUsername.value,
+    password: elements.registerPassword.value
+  };
 
-    let userData = null
+  // Send registration request to server
+  const response = await fetch('api/newuser', createRequestOptions('POST', user));
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    }
-    const response = await fetch('/api/loginwithsecrete', options)
-
-    userData = await response.json()
-
-    if (response.status === 200) {
-
-        loggedinUsername.innerHTML = userData.username
-        userGreeting.innerText = `Signed in as: \n  ${userData.username}`
-
-        generalChannel.classList.add("selected")
-        const selectedChannel = document.querySelector('.selected')
-        channelHeading.innerHTML = selectedChannel.innerHTML
-        getMessage(selectedChannel.innerHTML)
-        userLogin = true
-        openDashboardAfterLogin()
-
-    } else {
-        console.log('Something is wrong! status=', response.status)
-    }
-
+  // Process response
+  if (response.ok) {
+    const userToken = await response.json();
+    saveToken(userToken);
+    updateUserInterface(user.username);
+    openDashboard();
+  } else {
+    displayWarning("Please fill all the details first");
+  }
 }
 
-async function getMessage(channelName) {
-
-    let messageData = ""
-    try {
-        const response = await fetch(`/api/messages/${channelName}`)
-        if (response.status !== 200) {
-            console.log('Could not contact server. Status: ' + response.status)
-            return
-        }
-        messageData = await response.json()
-
-    } catch (error) {
-        console.log('Something went wrong when fetching data from server. (GET) \n' + error.message)
-        return
-    }
-
-    messageList.innerHTML = ""
-    messageData.forEach(message => {
-        const msgBtn = document.createElement('div')
-        const outerDiv = document.createElement('div')
-        const msgDiv = document.createElement('div')
-        const avatarDiv = document.createElement('div')
-        const avatar = document.createElement('p')
-        const datep = document.createElement('p')
-        const timep = document.createElement('p')
-        avatar.innerHTML = `${message.username}`
-        datep.innerText = `${message.date}`
-        timep.innerText = `${message.time}`
-        msgDiv.classList.add('msg-div')
-        avatarDiv.classList.add('user-avatar')
-        avatar.classList.add('avatar')
-        msgBtn.classList.add('msg-btn')
-        avatarDiv.appendChild(avatar)
-        avatarDiv.appendChild(datep)
-        avatarDiv.appendChild(timep)
-        outerDiv.classList.add('outer')
-        msgDiv.innerHTML = `${message.message}.`
-        outerDiv.appendChild(avatarDiv)
-        outerDiv.appendChild(msgDiv)
-        outerDiv.appendChild(msgBtn)
-        messageList.appendChild(outerDiv)
-    })
+// Function to display user dashboard after login
+function openDashboard() {
+  elements.loginForm.style.display = "none";
+  elements.registerForm.style.display = "none";
+  elements.signeddashboard.style.display = "block";
+  enableChannels();
+  userLogin = true;
 }
 
+// Function to check user login status
+async function checkUserLoginStatus() {
+  const jwtUser = localStorage.getItem(jwtKey);
+  if (!jwtUser) return;
+
+  const token = JSON.parse(jwtUser).token;
+  const isTokenExpired = Date.now() > JSON.parse(atob(token.split('.')[1])).exp * 1000;
+
+  if (isTokenExpired) {
+    localStorage.removeItem(jwtKey);
+    return;
+  }
+
+  const response = await fetch('/api/loginwithsecrete', createRequestOptions('POST', null, token));
+
+  if (response.ok) {
+    const userData = await response.json();
+    updateUserInterface(userData.username);
+    openDashboard();
+  }
+}
+
+// Function to load messages for a specific channel
+async function loadMessages(channelName) {
+  const response = await fetch(`/api/messages/${channelName}`);
+  if (!response.ok) return console.error(`Failed to load messages for ${channelName}`);
+
+  const messages = await response.json();
+  displayMessages(messages);
+}
+
+// Function to send a message
 async function sendMessage() {
-    let selectedChannel = document.querySelector(".selected")
-    let date = new Date()
-    let dateInString = date.toLocaleDateString()
-    const timeInString = date.toLocaleTimeString()
-    const user = {
-        username: loggedinUsername.innerText,
-        message: inputMsg.value,
-        channelName: selectedChannel.innerHTML,
-        date: dateInString,
-        time: timeInString
-    }
+  const selectedChannel = document.querySelector(".selected").innerHTML;
+  const message = {
+    username: elements.loggedinUsername.innerText,
+    message: elements.inputMsg.value,
+    channelName: selectedChannel,
+    date: new Date().toLocaleDateString(),
+    time: new Date().toLocaleTimeString()
+  };
 
-    const options = {
-        method: 'POST',
-        body: JSON.stringify(user),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    }
-    try {
-        const response = await fetch('/api/message/', options)
-
-        if (response.status === 200) {
-            getMessage(user.channelName)
-            inputMsg.value = ''
-            warnPTag.innerHTML = ''
-        } else {
-            warnPTag.style.color = "red"
-            warnPTag.innerHTML = "Message cant be empty"
-        }
-
-    } catch (error) {
-        warnPTag.style.color = "red"
-        warnPTag.innerHTML = `Something went wrong when fetching data from server. (GET) \n  ${error.message}`
-        return
-    }
+   // Send message to server
+  const response = await fetch('/api/message/', createRequestOptions('POST', message));
+  if (response.ok) {
+    // If message sent successfully, reload messages, clear input, and clear warning
+    loadMessages(selectedChannel);
+    elements.inputMsg.value = '';
+    elements.warnPTag.innerHTML = '';
+  } else {
+    // If message sending failed, display warning
+    displayWarning("Message cannot be empty", true);
+  }
 }
 
-sendMsgBtn.addEventListener('click', sendMessage)
-
-for (const channel of channels) {
-    channel.addEventListener('click', async () => {
-        if (userLogin == true) {
-            let selectedChannel = document.querySelector(".selected")
-            selectedChannel.classList.remove("selected")
-            channel.classList.add("selected")
-
-            const channelName = channel.innerHTML
-            channelHeading.innerHTML = channelName
-            getMessage(channelName)
-        }
-    })
+// Function to create request options for fetch
+function createRequestOptions(method, body, token = '') {
+  return {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    },
+    ...(body && { body: JSON.stringify(body) })
+  };
 }
 
-function displayWarningMsg(msg) {
-    warningP.style.display = "block"
-    warningP.style.color = "red"
-    warningP.innerHTML = msg
+// Function to display messages in the message list
+function displayMessages(messages) {
+  elements.messageList.innerHTML = '';
+  messages.forEach(msg => {
+    // Create message elements and append to message list
+    const outerDiv = createElement('div', 'outer');
+    const avatarDiv = createElement('div', 'user-avatar', `<p>${msg.username}</p><p>${msg.date}</p><p>${msg.time}</p>`);
+    const msgDiv = createElement('div', 'msg-div', msg.message);
+    outerDiv.append(avatarDiv, msgDiv);
+    elements.messageList.appendChild(outerDiv);
+  });
 }
 
-window.addEventListener('keydown', e => {
-    if (e.key == "Enter") {
-        sendMessage()
-    }
-})
+// Function to create HTML element
+function createElement(tag, className, innerHTML = '') {
+  const element = document.createElement(tag);
+  element.className = className;
+  element.innerHTML = innerHTML;
+  return element;
+}
+
+// Function to save JWT token to local storage
+function saveToken(token) {
+  localStorage.setItem(jwtKey, JSON.stringify(token));
+}
+
+// Function to update user interface after login
+function updateUserInterface(username) {
+  elements.loggedinUsername.innerHTML = username;
+  elements.userGreeting.innerText = `Signed in as: \n  ${username}`;
+}
+
+// Function to enable channels after login
+function enableChannels() {
+  [elements.privateChannel, elements.familyChannel, elements.sendMsgBtn].forEach(el => el.disabled = false);
+}
+
+// Function to display warning message
+function displayWarning(msg, isPermanent = false) {
+  elements.warningP.style.display = "block";
+  elements.warningP.style.color = "red";
+  elements.warningP.innerHTML = msg;
+  if (!isPermanent) setTimeout(() => elements.warningP.style.display = "none", 3000);
+}
+
+// Function to handle channel selection
+function selectChannel() {
+  if (!userLogin) return;
+  document.querySelector(".selected").classList.remove("selected");
+  this.classList.add("selected");
+  const channelName = this.innerHTML;
+  elements.channelHeading.innerHTML = channelName;
+  loadMessages(channelName);
+}

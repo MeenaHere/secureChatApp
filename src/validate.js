@@ -1,53 +1,60 @@
+//Checks if the provided data object contains valid user information.
 function isValidData(data) {
-    if (!isNonEmptyString(data.firstName)) {
-        console.log('isValidUser: wrong first name')
+    if (!isValidString(data.firstName)) {
+        console.log('isValidData: wrong first name')
         return false
     }
 
-    if (!isNonEmptyString(data.lastName)) {
-        console.log('isValidUser: wrong last name')
+    if (!isValidString(data.lastName)) {
+        console.log('isValidData: wrong last name')
         return false
     }
 
-    if (!isNonEmptyString(data.username)) {
-        console.log('isValidUser: wrong username')
+    if (!isValidString(data.username)) {
+        console.log('isValidData: wrong username')
         return false
     }
 
-    if (!isNonEmptyString(data.password)) {
-        console.log('isValidUser: wrong format password')
+    if (!isValidString(data.password)) {
+        console.log('isValidData: wrong format password')
         return false
     }
+
     return true
 }
+
+//Checks if the provided message object contains valid message information.
 
 function isValidMessage(maybeData) {
-    if (!isNonEmptyString(maybeData.username)) {
-        console.log('isValidUser: wrong username')
+    if (!isValidString(maybeData.username)) {
+        console.log('isValidMessage: wrong username')
         return false
     }
 
-    if (!isNonEmptyString(maybeData.message)) {
-        console.log('isValidUser: wrong message')
+    if (!isValidString(maybeData.message)) {
+        console.log('isValidMessage: wrong message')
         return false
     }
 
-    if (!isNonEmptyString(maybeData.channelName)) {
-        console.log('isValidUser: wrong channel name')
+    if (!isValidString(maybeData.channelName)) {
+        console.log('isValidMessage: wrong channel name')
         return false
     }
 
     return true
 }
 
-function isNonEmptyString(input) {
+ // Checks if the input is a non-empty string.
+function isValidString(input) {
     return typeof input === 'string' && input.length > 0
 }
 
+//Checks if the input is a positive integer.
 function isPositiveInteger(x) {
     const isNumber = typeof x === 'number'
     const isInteger = x % 1 === 0
     return isNumber && x > 0 && isInteger
 }
 
+// Export functions for use in other modules
 export { isValidData, isPositiveInteger, isValidMessage }

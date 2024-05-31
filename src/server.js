@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
 app.use(express.static(staticPath))
 
-
+//User API's
 app.use('/api', userRoutes)
 
 export { app }
